@@ -1,0 +1,45 @@
+
+<div class="p-[20px] code">
+
+    <div class="flex">
+        <div>
+            <h2 class="leading-none text-[40px] text-white mb-[4px]">Welcome!</h2>
+            <h2 class="leading-none text-[60px] text-white mb-[40px]">RAGA</h2>
+        
+        </div>
+
+</div>
+<div>
+
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col h-full">
+        <input
+        matInput
+        #codeInput
+        class="btn mb-[8px]"
+        formControlName="code"
+        placeholder="XXXXX"
+        maxlength="5"
+        inputmode="numeric"
+        pattern="\d*"
+        autocomplete="one-time-code"
+        (focus)="onFocusInput()"
+        (input)="onInput()"
+      />
+    
+      <!-- lightweight error text (use mat-error if you wrap with mat-form-field) -->
+       <div class="h-[16px]">
+        <small class="text-red-400"  *ngIf="form.get('code')?.touched && form.get('code')?.hasError('codeMismatch')">
+            Enter Correct Number
+          </small>
+       </div>
+    
+    
+      <button mat-raised-button class="mt-[10px]" type="submit" [disabled]="form.invalid">
+        {{ form.invalid ? 'Enter 5 Digit Code' : 'Click Here' }}
+      </button>
+
+  
+</form>
+</div>
+</div>

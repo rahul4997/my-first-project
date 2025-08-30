@@ -1,0 +1,41 @@
+::ng-deep.mat-mdc-dialog-surface{
+    border-radius: 10px;
+background: #5A16A0;
+background: linear-gradient(135deg, #5A16A0, #872ABA);
+    display: flex;
+    justify-content: center;
+}
+:host {
+    display: block;
+    height: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: env(keyboard-inset-height, 80px); // for iOS
+  }
+::ng-deep.mat-mdc-dialog-container{
+height: 400px;
+}
+::ng-deep input::placeholder {
+    color: #cecece !important; // your desired color
+    opacity: 1 !important; // optional: ensures full visibility
+  }
+.code{
+    line-height: normal;
+    .btn{
+        font-size: 60px;
+        border-radius: 10px;
+        padding: 10px;
+        color: rgb(87, 87, 87);
+        text-align: center;
+    }
+ 
+}
+::ng-deep.mat-mdc-raised-button.mat-mdc-button-disabled{
+    background-color: grey !important;
+    color: white !important;
+    
+}
+::ng-deep.mat-mdc-raised-button{
+    background-color: white !important;
+    color: rgb(71, 71, 71) !important;
+}
