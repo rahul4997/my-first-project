@@ -44,9 +44,11 @@ export class ImageGalleryComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.uploading = true;
     try {
-      await this.supa.upload(file);
-      await this.refresh();
-    } catch (e: any) {
+      const newImg = await this.supa.upload(file);
+      this.images = [...this.images, newImg];
+    
+    } 
+    catch (e: any) {
       console.error('Upload failed:', e);
       alert(e?.message || 'Upload failed');
     } finally {

@@ -30,11 +30,11 @@ export class SupaGalleryService {
   }
 
   /** Upload a single file to the bucket root. */
-  async upload(file: File, path = ''): Promise<string> {
+  async upload(file: File, path = ''): Promise<SupaImage> {
     const cleanName = file.name.replace(/\s+/g, '_');
     const objectName = `${Date.now()}_${cleanName}`;
     const fullPath = (path ? path + '/' : '') + objectName;
-
+  
     const { error } = await supabase
       .storage
       .from(this.bucket)
@@ -43,9 +43,10 @@ export class SupaGalleryService {
         upsert: false,
         contentType: file.type || 'application/octet-stream'
       });
-
     if (error) throw error;
-    return objectName; // return object name so you can delete later
+  
+    const { data: { publicUrl } } = supabase.storage.from(this.bucket).getPublicUrl(fullPath);
+    return { name: objectName, url: publicUrl }; // ✅ return full item
   }
 
   /** Delete a single object by name from the bucket root. */
