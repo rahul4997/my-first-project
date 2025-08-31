@@ -1,40 +1,72 @@
-<!-- Mobile list -->
-<div class="text-right px-[20px]  violet">
-  <p (click)="logout()" class="text-[15px] text-[#dadada] leading-[48px]">Logout</p>
+<!-- Top bar / upload -->
+<div class="text-right px-[20px] violet">
+  <p (click)="logout()" class="text-[15px] text-[#dadada] leading-[48px] cursor-pointer">Logout</p>
+
 </div>
+
+<!-- Heading -->
 <div class="px-[50px] py-[25px] violet">
-  
-  <p class="text-[30px] text-[#dadada] leading-[48px]">Explore <br> <span class="text-[40px] text-white">Ragaranjani’s</span>  <br> World of Art</p>
-  </div>
+  <p class="text-[30px] text-[#dadada] leading-[48px]">
+    Explore <br>
+    <span class="text-[40px] text-white">Ragaranjani’s</span><br>
+    World of Art
+  </p>
+</div>
+
+<!-- Mobile list -->
 <div class="block lg:hidden p-[20px] bg-grey">
-  
   <div class="grid grid-cols-1 gap-[48px]">
-    <img *ngFor="let img of images"
-         [src]="img.src"
-         [alt]="img.alt || 'image'"
-         class=" w-full border-[8px] border-white shadow1"
-         (click)="open(img)"
-         loading="lazy">
+    <!-- Put *ngFor on a wrapper so both img + button share the same scope -->
+    <div *ngFor="let img of images; trackBy: trackByName" class="relative group">
+      <img
+        [src]="img.url"
+        [alt]="img.name"
+        class="w-full border-[8px] border-white shadow1 cursor-zoom-in"
+        (click)="open(img)"
+        loading="lazy"
+      />
+   
+      <mat-icon   (click)="delete(img, $event)" class="absolute top-[13px] right-[13px]  text-[#686868]">delete</mat-icon>
+
+    </div>
   </div>
 </div>
-<div class="p-[40px] violet text-center">
-  <p class="text-[20px] text-white ">New Creations Arriving Soon...!</p>
-  </div>
-<!-- Fullscreen lightbox -->
-<div *ngIf="isOpen" class="fixed inset-0 z-50 bg-black/90 flex flex-col"
-     (click)="close($event)">
-  <!-- top bar -->
-  <div class="flex items-center justify-between px-4 h-12 text-white">
-   
+
+<div class="p-[40px] flex justify-center violet text-center text-white">
+  <div>
+    <div class="flex items-center rounded-[10px] gap-2 p-3 bg-[#209100] mb-[2px]">
+      <mat-icon>cloud_upload</mat-icon>
+      <label class="btn">
+        <input class="text-[20px] text-white" type="file" accept="image/*" (change)="onFileSelect($event)" hidden>
+        Upload Image
+      </label>
+ 
+    </div>
+    <span *ngIf="uploading">Uploading…</span>
   </div>
 
+
+
+
+</div>
+
+<!-- Fullscreen lightbox -->
+<div
+  *ngIf="isOpen"
+  class="fixed inset-0 z-50 bg-black/90 flex flex-col"
+  (click)="close($event)"
+>
   <!-- pinch-zoom area -->
   <div class="flex-1 overflow-hidden">
-    <div #pz class="h-full w-full touch-none">
-      <img [src]="selected?.src"
-           [alt]="selected?.alt || 'image'"
-           class="block mx-auto max-h-full"
-           draggable="false" />
+    <div #pz class="h-full w-full touch-none flex items-center justify-center">
+      <!-- Use 'selected' here (no 'img' in this scope) -->
+      <img
+        *ngIf="selected"
+        [src]="selected.url"
+        [alt]="selected.name"
+        class="block max-h-[90vh] max-w-[90vw]"
+        draggable="false"
+      />
     </div>
   </div>
 </div>

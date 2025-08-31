@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^18.1.0",
     "@angular/platform-browser-dynamic": "^18.1.0",
     "@angular/router": "^18.1.0",
+    "@supabase/supabase-js": "^2.56.1",
     "@tailwindcss/postcss": "^4.1.4",
     "pinch-zoom-js": "^2.3.5",
     "rxjs": "~7.8.0",
